@@ -87,12 +87,7 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
 
             clicks ++;
 
-            if(clicks >= CLICKS_MAX) {
-                Intent intent = new Intent(getApplicationContext(), PracticalTest01Var05Service.class);
-                intent.putExtra("text", textView.getText().toString());
-                getApplicationContext().startService(intent);
-                Log.d("TAG", "Sent service request!!!!");
-            }
+
             String text = ((Button)v).getText().toString();
 
             String oldText = textView.getText().toString();
@@ -102,6 +97,13 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
             }
             else {
                 textView.setText(oldText + " ," + text);
+            }
+
+            if(clicks >= CLICKS_MAX) {
+                Intent intent = new Intent(getApplicationContext(), PracticalTest01Var05Service.class);
+                intent.putExtra("text", textView.getText().toString());
+                getApplicationContext().startService(intent);
+                Log.d("TAG", "Sent service request!!!!");
             }
         }
     }
