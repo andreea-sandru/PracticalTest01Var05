@@ -40,6 +40,22 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
         button4.setOnClickListener(buttonClickListener);
         button5.setOnClickListener(buttonClickListener);
 
+        otherActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), PracticalTest01Var05SecondaryActivity.class);
+
+                String text = textView.getText().toString();
+                intent.putExtra("text", text);
+                intent.putExtra("cliks", clicks);
+
+                clicks = 0;
+                textView.setText("");
+
+                startActivityForResult(intent, Req_code);
+            }
+        });
+
         if (savedInstanceState == null) {
             Log.d("TAGGG", "onCreate() method was invoked without a previous state");
         } else {
@@ -80,6 +96,14 @@ public class PracticalTest01Var05MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState.containsKey(CLICKS_KEY)) {
             Toast.makeText(this, "Clicks =  " + savedInstanceState.getString(CLICKS_KEY), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == Req_code) {
+            Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
         }
     }
 }
